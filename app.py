@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request
 import pickle
 
 app = Flask(__name__)
@@ -7,16 +7,18 @@ app = Flask(__name__)
 def hello():
     return render_template('index.html')
 
-@app.route('/prediction', methods=['GET','POST'])
+@app.route('/prediction', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        height = request.form['height']
-        print(height)
-        model = pickle.load(open('model.pkl','rb'))
-        weight = model.predict([[float(height)]])
+        ht = request.form['height']
+        print(ht)
+        model = pickle.load(open('model.pkl', 'rb'))
+        weight = model.predict([[float(ht)]])
         print(weight[0])
-        
-    return render_template('prediction.html', weight=weight[0])
-if __name__=='__main__':
- app.debug = True
- app.run()
+        rounded_weight = round(weight[0], 2)
+        return render_template('prediction.html', prediction=rounded_weight)
+    else:
+        return "Method Not Allowed"
+
+if __name__ == '__main__':
+    app.run()
