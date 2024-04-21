@@ -16,7 +16,7 @@ def predict():
         weight = model.predict([[float(height)]])
         print(weight[0])
         
-    return render_template('prediction.html',weight=weight[0])
+    return render_template('prediction.html', weight=weight[0])
 if __name__=='__main__':
  app.debug = True
  app.run()
