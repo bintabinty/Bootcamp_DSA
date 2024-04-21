@@ -18,4 +18,5 @@ def predict():
         
     return render_template('prediction.html',weight=weight[0])
 if __name__=='__main__':
+ app.debug = True
  app.run()
